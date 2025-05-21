@@ -17,6 +17,7 @@ const schema = yup.object().shape({
         })
     ),
 });
+
 const One = () => {
     const methods = useForm({
         mode: "all",
@@ -31,15 +32,35 @@ const One = () => {
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-                <input {...methods.register("firstName")} placeholder="First Name" />
-                {methods?.formState?.errors?.firstName && (
-                    <p style={{ color: "red" }}>
-                        {methods?.formState?.errors?.firstName?.message}
-                    </p>
-                )}
+            <form
+                onSubmit={methods.handleSubmit(onSubmit)}
+                className="max-w-lg mx-auto p-8 bg-white rounded-lg shadow space-y-8"
+            >
+                <div>
+                    <label className="block mb-1 font-semibold text-gray-700">
+                        First Name
+                    </label>
+                    <input
+                        {...methods.register("firstName")}
+                        placeholder="First Name"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${methods?.formState?.errors?.firstName
+                                ? "border-red-500"
+                                : "border-gray-300"
+                            }`}
+                    />
+                    {methods?.formState?.errors?.firstName && (
+                        <p className="text-red-600 mt-1 text-sm">
+                            {methods?.formState?.errors?.firstName?.message}
+                        </p>
+                    )}
+                </div>
                 <OneNest />
-                <button type="submit">Submit</button>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white transition-all px-4 py-2 rounded-md font-semibold w-full"
+                    type="submit"
+                >
+                    Submit
+                </button>
             </form>
         </FormProvider>
     );
