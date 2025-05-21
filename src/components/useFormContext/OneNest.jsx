@@ -12,7 +12,14 @@ const OneNest = () => {
         <div>
             <h3>Address List</h3>
             {fields.map((field, index) => (
-                <div key={field.id} style={{ marginBottom: "10px", paddingBottom: "10px", borderBottom: "1px solid #ccc" }}>
+                <div
+                    key={field.id}
+                    style={{
+                        marginBottom: "10px",
+                        paddingBottom: "10px",
+                        borderBottom: "1px solid #ccc",
+                    }}
+                >
                     <input
                         {...register(`addressList.${index}.street`)}
                         placeholder="Street"
