@@ -9,6 +9,11 @@ const schema = yup.object().shape({
         yup.object().shape({
             street: yup.string().required("Street is required"),
             city: yup.string().required("City is required"),
+            zip: yup.string().when("city", {
+                is: (val) => val === "New York",
+                then: (schema) => schema.required("Zip is required"),
+                otherwise: (schema) => schema.notRequired(),
+            }),
         })
     ),
 });
@@ -17,7 +22,7 @@ const One = () => {
         mode: "all",
         defaultValues: {
             firstName: "",
-            addressList: [{ street: "", city: "" }],
+            addressList: [{ street: "", city: "", zip: "" }],
         },
         resolver: yupResolver(schema),
     });
