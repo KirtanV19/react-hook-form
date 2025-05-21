@@ -5,7 +5,7 @@ const OneNest = () => {
         register,
         control,
         formState: { errors },
-        watch
+        watch,
     } = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
@@ -13,13 +13,12 @@ const OneNest = () => {
         name: "addressList",
     });
 
-    const cityValue = watch('addressList')
+    const cityValue = watch("addressList");
     return (
         <div>
             <h3>Address List</h3>
             {fields.map((field, index) => {
-
-                const city = cityValue?.[index]?.city
+                const city = cityValue?.[index]?.city.toLowerCase();
                 return (
                     <div
                         key={field.id}
@@ -33,7 +32,7 @@ const OneNest = () => {
                             {...register(`addressList.${index}.street`)}
                             placeholder="Street"
                         />
-                        {errors.addressList?.[index]?.street?.message && (
+                        {errors.addressList?.[index]?.street && (
                             <p style={{ color: "red" }}>
                                 {errors.addressList?.[index]?.street?.message}
                             </p>
@@ -42,7 +41,7 @@ const OneNest = () => {
                             {...register(`addressList.${index}.city`)}
                             placeholder="City"
                         />
-                        {errors.addressList?.[index]?.city?.message && (
+                        {errors.addressList?.[index]?.city && (
                             <p style={{ color: "red" }}>
                                 {errors.addressList?.[index]?.city?.message}
                             </p>
@@ -54,9 +53,10 @@ const OneNest = () => {
                                     {...register(`addressList.${index}.zip`)}
                                     placeholder="Zip Code"
                                 />
-                                <p style={{ color: "red" }}>
-                                    {errors?.addressList?.[index]?.zip?.message}
-                                </p>
+
+                                {errors?.addressList?.[index]?.zip && (
+                                    <p>{errors?.addressList?.[index]?.zip?.message}</p>
+                                )}
                             </>
                         )}
 
@@ -64,11 +64,13 @@ const OneNest = () => {
                             Remove
                         </button>
                     </div>
-                )
-            }
-            )}
+                );
+            })}
 
-            <button type="button" onClick={() => append({ street: "", city: "", zip: '' })}>
+            <button
+                type="button"
+                onClick={() => append({ street: "", city: "", zip: "" })}
+            >
                 Append
             </button>
         </div>
