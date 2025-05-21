@@ -1,4 +1,5 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
+import { Input, Button } from "@material-tailwind/react";
 
 const OneNest = () => {
     const {
@@ -13,91 +14,75 @@ const OneNest = () => {
         name: "addressList",
     });
 
-    const cityValue = watch("addressList");
+    const addressList = watch("addressList");
+
     return (
         <div>
-            <p className="text-base font-bold mb-2">Address List</p>
+            <h3 className="text-lg font-bold mb-4">Address List</h3>
             {fields.map((field, index) => {
-                const city = cityValue?.[index]?.city;
+                const city = addressList?.[index]?.city;
+
                 return (
-                    <div
-                        key={field.id}
-                        className="mb-6 pb-6 border-b border-gray-200"
-                    >
-                        <div className="mb-3">
-                            <label className="block mb-1 font-semibold text-gray-700">
-                                Street
-                            </label>
-                            <input
+                    <div key={field.id} className="mb-6 pb-6 border-b border-gray-200">
+                        <div className="mb-4">
+                            <Input
+                                label="Street"
                                 {...register(`addressList.${index}.street`)}
-                                placeholder="Street"
-                                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.addressList?.[index]?.street
-                                        ? "border-red-500"
-                                        : "border-gray-300"
-                                    }`}
+                                error={!!errors.addressList?.[index]?.street}
                             />
                             {errors.addressList?.[index]?.street && (
-                                <p className="text-red-600 mt-1 text-sm">
-                                    {errors.addressList?.[index]?.street?.message}
+                                <p className="text-red-600 text-sm">
+                                    {errors.addressList[index].street.message}
                                 </p>
                             )}
                         </div>
-                        <div className="mb-3">
-                            <label className="block mb-1 font-semibold text-gray-700">
-                                City
-                            </label>
-                            <input
+
+                        <div className="mb-4">
+                            <Input
+                                label="City"
                                 {...register(`addressList.${index}.city`)}
-                                placeholder="City"
-                                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.addressList?.[index]?.city
-                                        ? "border-red-500"
-                                        : "border-gray-300"
-                                    }`}
+                                error={!!errors.addressList?.[index]?.city}
                             />
                             {errors.addressList?.[index]?.city && (
-                                <p className="text-red-600 mt-1 text-sm">
-                                    {errors.addressList?.[index]?.city?.message}
+                                <p className="text-red-600 text-sm">
+                                    {errors.addressList[index].city.message}
                                 </p>
                             )}
                         </div>
-                        {city === "New York" && (
-                            <div className="mb-3">
-                                <label className="block mb-1 font-semibold text-gray-700">
-                                    Zip Code
-                                </label>
-                                <input
+
+                        {city?.toLowerCase() === "new york" && (
+                            <div className="mb-4">
+                                <Input
+                                    label="Zip Code"
                                     {...register(`addressList.${index}.zip`)}
-                                    placeholder="Zip Code"
-                                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors?.addressList?.[index]?.zip
-                                            ? "border-red-500"
-                                            : "border-gray-300"
-                                        }`}
+                                    error={!!errors.addressList?.[index]?.zip}
                                 />
-                                {errors?.addressList?.[index]?.zip && (
-                                    <p className="text-red-600 mt-1 text-sm">
-                                        {errors?.addressList?.[index]?.zip?.message}
+                                {errors.addressList?.[index]?.zip && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.addressList[index].zip.message}
                                     </p>
                                 )}
                             </div>
                         )}
-                        <button
-                            className="bg-red-500 hover:bg-red-700 text-white transition-all px-3 py-1 rounded-md font-semibold mt-2"
-                            type="button"
+
+                        <Button
                             onClick={() => remove(index)}
+                            variant="outlined"
+                            color="red"
+                            className="mt-2"
                         >
                             Remove
-                        </button>
+                        </Button>
                     </div>
                 );
             })}
 
-            <button
-                className="bg-green-500 hover:bg-green-700 text-white transition-all px-4 py-2 rounded-md font-semibold"
-                type="button"
+            <Button
                 onClick={() => append({ street: "", city: "", zip: "" })}
+                color="green"
             >
                 Add Address
-            </button>
+            </Button>
         </div>
     );
 };
