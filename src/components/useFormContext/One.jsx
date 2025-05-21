@@ -36,7 +36,6 @@ const One = () => {
             <form
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="max-w-lg mx-auto p-8 bg-white rounded-lg shadow space-y-8"
-
             >
                 <Input
                     label="First Name"

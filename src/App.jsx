@@ -1,7 +1,12 @@
-import One from "./components/useFormContext/One";
-
+import FormStateExample from './components/useFormState/One'
+import UseFormStateExample from './components/useFormState/Two'
 const App = () => {
-  return <One />;
+  return (
+    <div>
+      <FormStateExample />
+      <UseFormStateExample />
+    </div>
+  );
 };
 
 export default App;
