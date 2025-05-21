@@ -1,7 +1,11 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
 
 const OneNest = () => {
-    const { register, control } = useFormContext();
+    const {
+        register,
+        control,
+        formState: { errors },
+    } = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -24,10 +28,16 @@ const OneNest = () => {
                         {...register(`addressList.${index}.street`)}
                         placeholder="Street"
                     />
+                    {errors.addressList?.[index]?.street?.message && (
+                        <p color="red">{errors.addressList?.[index]?.street?.message}</p>
+                    )}
                     <input
                         {...register(`addressList.${index}.city`)}
                         placeholder="City"
                     />
+                    {errors.addressList?.[index]?.city?.message && (
+                        <p color="red">{errors.addressList?.[index]?.city?.message}</p>
+                    )}
                     <button type="button" onClick={() => remove(index)}>
                         Remove
                     </button>
