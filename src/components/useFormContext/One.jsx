@@ -8,7 +8,7 @@ const schema = yup.object().shape({
     addressList: yup.array().of(
         yup.object().shape({
             street: yup.string().required("Street is required"),
-            city: yup.string().required("City is reuired"),
+            city: yup.string().required("City is required"),
         })
     ),
 });

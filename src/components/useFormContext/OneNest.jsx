@@ -29,14 +29,14 @@ const OneNest = () => {
                         placeholder="Street"
                     />
                     {errors.addressList?.[index]?.street?.message && (
-                        <p color="red">{errors.addressList?.[index]?.street?.message}</p>
+                        <p style={{ color: 'red' }}>{errors.addressList?.[index]?.street?.message}</p>
                     )}
                     <input
                         {...register(`addressList.${index}.city`)}
                         placeholder="City"
                     />
                     {errors.addressList?.[index]?.city?.message && (
-                        <p color="red">{errors.addressList?.[index]?.city?.message}</p>
+                        <p style={{ color: 'red' }}>{errors.addressList?.[index]?.city?.message}</p>
                     )}
                     <button type="button" onClick={() => remove(index)}>
                         Remove
