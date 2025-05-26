@@ -25,6 +25,7 @@ const FormOne = () => {
         console.log(data);
         reset();
     };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -33,7 +34,6 @@ const FormOne = () => {
         }
     };
 
-    // Stepper steps count (update if you add/remove steps)
     const stepsCount = 5;
 
     return (
@@ -73,8 +73,8 @@ const FormOne = () => {
                                             placeholder="Enter a name"
                                             autoComplete="name"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.name
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-gray-300 focus:ring-blue-200"
+                                                    ? "border-red-500 focus:ring-red-200"
+                                                    : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("name", {
                                                 required: "Name is required",
@@ -98,8 +98,8 @@ const FormOne = () => {
                                             type="text"
                                             placeholder="Enter last name"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.last
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-gray-300 focus:ring-blue-200"
+                                                    ? "border-red-500 focus:ring-red-200"
+                                                    : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("last", {
                                                 minLength: {
@@ -167,8 +167,8 @@ const FormOne = () => {
                                             placeholder="Enter Email"
                                             autoComplete="email"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.email
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-gray-300 focus:ring-blue-200"
+                                                    ? "border-red-500 focus:ring-red-200"
+                                                    : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("email", {
                                                 required: "Email is required",
@@ -197,8 +197,8 @@ const FormOne = () => {
                                             placeholder="Enter password"
                                             autoComplete="current-password"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.password
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-gray-300 focus:ring-blue-200"
+                                                    ? "border-red-500 focus:ring-red-200"
+                                                    : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("password", {
                                                 required: "password is required",
@@ -229,8 +229,8 @@ const FormOne = () => {
                                     <select
                                         multiple
                                         className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.skills
-                                            ? "border-red-500 focus:ring-red-200"
-                                            : "border-gray-300 focus:ring-blue-200"
+                                                ? "border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:ring-blue-200"
                                             }`}
                                         {...register("skills", { required: "Skills is required" })}
                                     >
@@ -309,10 +309,7 @@ const FormOne = () => {
                             </Button>
                         )}
                         {step === stepsCount && (
-                            <Button
-                                type="submit"
-                                color="green"
-                            >
+                            <Button type="submit" color="green">
                                 Submit
                             </Button>
                         )}
