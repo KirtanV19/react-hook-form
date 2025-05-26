@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { Stepper, Step, Button } from "@material-tailwind/react"; // <-- Import Material Tailwind
 
 const FormOne = () => {
     const {
@@ -17,6 +18,9 @@ const FormOne = () => {
 
     const [step, setStep] = useState(1);
     const [imagePreview, setImagePreview] = useState(null);
+    const [isLastStep, setIsLastStep] = useState(false);
+    const [isFirstStep, setIsFirstStep] = useState(false);
+
     const onSubmit = (data) => {
         console.log(data);
         reset();
@@ -28,9 +32,26 @@ const FormOne = () => {
             setImagePreview(URL.createObjectURL(file));
         }
     };
+
+    // Stepper steps count (update if you add/remove steps)
+    const stepsCount = 5;
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+                {/* Stepper */}
+                <Stepper
+                    activeStep={step - 1}
+                    isLastStep={(value) => setIsLastStep(value)}
+                    isFirstStep={(value) => setIsFirstStep(value)}
+                    className="mb-8"
+                >
+                    <Step onClick={() => setStep(1)}>1</Step>
+                    <Step onClick={() => setStep(2)}>2</Step>
+                    <Step onClick={() => setStep(3)}>3</Step>
+                    <Step onClick={() => setStep(4)}>4</Step>
+                    <Step onClick={() => setStep(5)}>5</Step>
+                </Stepper>
                 <h1 className="text-3xl font-bold text-center text-slate-900 mb-6">
                     Form
                 </h1>
@@ -41,6 +62,9 @@ const FormOne = () => {
                                 Personal Information
                             </h2>
                             <div className="flex flex-col gap-6">
+                                {/* ...existing fields... */}
+                                {/* First Name, Last Name, Gender */}
+                                {/* ...existing code... */}
                                 <div>
                                     <label className="block mb-1 font-medium text-gray-700">
                                         First Name:
@@ -49,8 +73,8 @@ const FormOne = () => {
                                             placeholder="Enter a name"
                                             autoComplete="name"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.name
-                                                    ? "border-red-500 focus:ring-red-200"
-                                                    : "border-gray-300 focus:ring-blue-200"
+                                                ? "border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("name", {
                                                 required: "Name is required",
@@ -74,8 +98,8 @@ const FormOne = () => {
                                             type="text"
                                             placeholder="Enter last name"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.last
-                                                    ? "border-red-500 focus:ring-red-200"
-                                                    : "border-gray-300 focus:ring-blue-200"
+                                                ? "border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("last", {
                                                 minLength: {
@@ -134,6 +158,7 @@ const FormOne = () => {
                                 Account Information
                             </h2>
                             <div className="flex flex-col gap-6">
+                                {/* ...existing fields... */}
                                 <div>
                                     <label className="block mb-1 font-medium text-gray-700">
                                         Email:
@@ -142,8 +167,8 @@ const FormOne = () => {
                                             placeholder="Enter Email"
                                             autoComplete="email"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.email
-                                                    ? "border-red-500 focus:ring-red-200"
-                                                    : "border-gray-300 focus:ring-blue-200"
+                                                ? "border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("email", {
                                                 required: "Email is required",
@@ -172,8 +197,8 @@ const FormOne = () => {
                                             placeholder="Enter password"
                                             autoComplete="current-password"
                                             className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.password
-                                                    ? "border-red-500 focus:ring-red-200"
-                                                    : "border-gray-300 focus:ring-blue-200"
+                                                ? "border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:ring-blue-200"
                                                 }`}
                                             {...register("password", {
                                                 required: "password is required",
@@ -204,8 +229,8 @@ const FormOne = () => {
                                     <select
                                         multiple
                                         className={`mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 ${errors.skills
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-gray-300 focus:ring-blue-200"
+                                            ? "border-red-500 focus:ring-red-200"
+                                            : "border-gray-300 focus:ring-blue-200"
                                             }`}
                                         {...register("skills", { required: "Skills is required" })}
                                     >
@@ -248,18 +273,18 @@ const FormOne = () => {
                             ></textarea>
                         </>
                     )}
+                    {/* Navigation Buttons */}
                     <div className="flex justify-between mt-8">
-                        {step > 1 && step <= 5 && (
-                            <button
-                                type="button"
-                                onClick={() => setStep((s) => s - 1)}
-                                className="px-6 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
-                            >
-                                Prev
-                            </button>
-                        )}
-                        {step >= 1 && step < 5 && (
-                            <button
+                        <Button
+                            type="button"
+                            onClick={() => setStep((s) => s - 1)}
+                            disabled={isFirstStep}
+                            color="gray"
+                        >
+                            Prev
+                        </Button>
+                        {step < stepsCount && (
+                            <Button
                                 type="button"
                                 onClick={async () => {
                                     let valid = true;
@@ -277,18 +302,19 @@ const FormOne = () => {
                                     }
                                     if (valid) setStep((s) => s + 1);
                                 }}
-                                className="ml-auto px-6 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+                                disabled={isLastStep}
+                                color="blue"
                             >
                                 Next
-                            </button>
+                            </Button>
                         )}
-                        {step === 5 && (
-                            <button
+                        {step === stepsCount && (
+                            <Button
                                 type="submit"
-                                className="ml-auto px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700 transition"
+                                color="green"
                             >
                                 Submit
-                            </button>
+                            </Button>
                         )}
                     </div>
                 </form>

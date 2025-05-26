@@ -1,8 +1,8 @@
-import One from './components/useFormContext/One'
+import FormOne from './components/Basic/FormOne'
 const App = () => {
   return (
     <div>
-      <One />
+      <FormOne />
     </div>
   );
 };
